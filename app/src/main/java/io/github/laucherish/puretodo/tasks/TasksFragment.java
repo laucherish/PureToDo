@@ -4,7 +4,9 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.github.laucherish.puretodo.R;
@@ -27,6 +30,10 @@ import io.github.laucherish.puretodo.data.Task;
 public class TasksFragment extends Fragment implements TasksContract.View{
 
     private TasksContract.Presenter mPresenter;
+
+    private TasksAdapter mTasksAdapter;
+
+    private RecyclerView mRcvTasks;
 
     private View mViewNoTasks;
 
@@ -49,6 +56,7 @@ public class TasksFragment extends Fragment implements TasksContract.View{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mTasksAdapter = new TasksAdapter(new ArrayList<Task>(0), mItemListener);
     }
 
     @Override
@@ -62,6 +70,11 @@ public class TasksFragment extends Fragment implements TasksContract.View{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_tasks, container, false);
+
+        mRcvTasks = (RecyclerView) root.findViewById(R.id.rcv_tasks);
+        mRcvTasks.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRcvTasks.setHasFixedSize(true);
+        mRcvTasks.setAdapter(mTasksAdapter);
 
         mTvFilteringLabel = (TextView) root.findViewById(R.id.tv_filtering_label);
         mLlTasksView = (LinearLayout) root.findViewById(R.id.ll_tasks);
@@ -118,7 +131,10 @@ public class TasksFragment extends Fragment implements TasksContract.View{
 
     @Override
     public void showTasks(List<Task> tasks) {
+        mTasksAdapter.setList(tasks);
 
+        mLlTasksView.setVisibility(View.VISIBLE);
+        mViewNoTasks.setVisibility(View.GONE);
     }
 
     @Override
@@ -194,17 +210,17 @@ public class TasksFragment extends Fragment implements TasksContract.View{
 
     @Override
     public void showAllFilterLabel() {
-
+        mTvFilteringLabel.setText(R.string.label_all);
     }
 
     @Override
     public void showCompletedFilterLabel() {
-
+        mTvFilteringLabel.setText(R.string.label_completed);
     }
 
     @Override
     public void showActiveFilterLabel() {
-
+        mTvFilteringLabel.setText(R.string.label_active);
     }
 
     @Override
@@ -216,4 +232,21 @@ public class TasksFragment extends Fragment implements TasksContract.View{
     public boolean isActive() {
         return false;
     }
+
+    TasksAdapter.TaskItemListener mItemListener = new TasksAdapter.TaskItemListener() {
+        @Override
+        public void onTaskClick(Task clickedTask) {
+            mPresenter.openTaskDetail(clickedTask);
+        }
+
+        @Override
+        public void onCompleteTaskClick(Task completedTask) {
+            mPresenter.completeTask(completedTask);
+        }
+
+        @Override
+        public void onActivateTaskClick(Task activatedTask) {
+            mPresenter.activateTask(activatedTask);
+        }
+    };
 }
