@@ -64,6 +64,10 @@ public class Task {
         return !mCompleted;
     }
 
+    public boolean isEmpty(){
+        return (TextUtils.isEmpty(mTitle) && TextUtils.isEmpty(mDescription));
+    }
+
     public void setCompleted(boolean completed) {
         mCompleted = completed;
     }
