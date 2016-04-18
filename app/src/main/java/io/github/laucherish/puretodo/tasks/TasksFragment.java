@@ -1,12 +1,14 @@
 package io.github.laucherish.puretodo.tasks;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,13 +23,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.github.laucherish.puretodo.R;
+import io.github.laucherish.puretodo.addedittask.AddEditTaskActivity;
 import io.github.laucherish.puretodo.data.Task;
 
 /**
  * @author laucherish
  * @date 16/4/14
  */
-public class TasksFragment extends Fragment implements TasksContract.View{
+public class TasksFragment extends Fragment implements TasksContract.View {
 
     private TasksContract.Presenter mPresenter;
 
@@ -47,9 +50,10 @@ public class TasksFragment extends Fragment implements TasksContract.View{
 
     private TextView mTvFilteringLabel;
 
-    public TasksFragment(){}
+    public TasksFragment() {
+    }
 
-    public static TasksFragment newInstance(){
+    public static TasksFragment newInstance() {
         return new TasksFragment();
     }
 
@@ -99,7 +103,7 @@ public class TasksFragment extends Fragment implements TasksContract.View{
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_tasks,menu);
+        inflater.inflate(R.menu.menu_tasks, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -131,7 +135,8 @@ public class TasksFragment extends Fragment implements TasksContract.View{
 
     @Override
     public void showTasks(List<Task> tasks) {
-        mTasksAdapter.setList(tasks);
+        Log.d(TAG, "showTasks: " + tasks.size());
+        mTasksAdapter.replaceData(tasks);
 
         mLlTasksView.setVisibility(View.VISIBLE);
         mViewNoTasks.setVisibility(View.GONE);
@@ -139,7 +144,8 @@ public class TasksFragment extends Fragment implements TasksContract.View{
 
     @Override
     public void showAddTask() {
-
+        Intent intent = new Intent(getActivity(), AddEditTaskActivity.class);
+        startActivityForResult(intent, AddEditTaskActivity.REQUEST_ADD_TASK);
     }
 
     @Override
@@ -230,7 +236,7 @@ public class TasksFragment extends Fragment implements TasksContract.View{
 
     @Override
     public boolean isActive() {
-        return false;
+        return isAdded();
     }
 
     TasksAdapter.TaskItemListener mItemListener = new TasksAdapter.TaskItemListener() {

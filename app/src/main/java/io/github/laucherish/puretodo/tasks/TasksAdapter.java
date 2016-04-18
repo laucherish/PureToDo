@@ -1,5 +1,6 @@
 package io.github.laucherish.puretodo.tasks;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,8 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
 
     private TaskItemListener mListener;
 
+    private Context mContext;
+
     public TasksAdapter(List<Task> tasks, TaskItemListener listener) {
         setList(tasks);
         mListener = listener;
@@ -31,6 +34,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
     @Override
     public TasksViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tasks, parent, false);
+        mContext = parent.getContext();
         return new TasksViewHolder(view);
     }
 
@@ -41,7 +45,14 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
         }
         final Task task = mTasks.get(position);
 
+        holder.mTvTitle.setText(task.getTitle());
         holder.mCbComplete.setChecked(task.isCompleted());
+        if (task.isCompleted()) {
+            holder.itemView.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.list_completed_touch_feedback));
+        } else {
+            holder.itemView.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.touch_feedback));
+        }
+
         holder.mCbComplete.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -66,9 +77,13 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
         return mTasks == null ? 0 : mTasks.size();
     }
 
+    public void replaceData(List<Task> tasks) {
+        setList(tasks);
+        notifyDataSetChanged();
+    }
+
     public void setList(List<Task> tasks) {
         mTasks = tasks;
-        notifyDataSetChanged();
     }
 
     class TasksViewHolder extends RecyclerView.ViewHolder {

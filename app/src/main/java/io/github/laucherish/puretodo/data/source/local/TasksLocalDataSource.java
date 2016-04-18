@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,8 @@ import io.github.laucherish.puretodo.data.source.local.TasksPersistenceContract.
  * @date 16/4/14
  */
 public class TasksLocalDataSource implements TasksDataSource {
+
+    private static final String TAG = "TasksLocalDataSource";
 
     private static TasksLocalDataSource INTANCE;
 
@@ -43,7 +46,8 @@ public class TasksLocalDataSource implements TasksDataSource {
         values.put(TaskEntry.COLUMN_NAME_DESCRIPTION, task.getDescription());
         values.put(TaskEntry.COLUMN_NAME_COMPLETED, task.isCompleted());
 
-        db.insert(TaskEntry.TABLE_NAME, null, values);
+        long flag = db.insert(TaskEntry.TABLE_NAME, null, values);
+        Log.d(TAG, "saveTask: " + flag + task.getTitle());
 
         db.close();
     }
@@ -80,7 +84,7 @@ public class TasksLocalDataSource implements TasksDataSource {
                 TaskEntry.COLUMN_NAME_COMPLETED
         };
 
-        String selection = TaskEntry.COLUMN_NAME_ENTRY_ID + "LIKE ?";
+        String selection = TaskEntry.COLUMN_NAME_ENTRY_ID + " LIKE ?";
         String[] selectionArgs = {taskId};
 
         Cursor cursor = db.query(TaskEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
@@ -121,7 +125,7 @@ public class TasksLocalDataSource implements TasksDataSource {
         };
 
         Cursor cursor = db.query(
-                TaskEntry.TABLE_NAME, projection, null, null, null, null, null);
+                TaskEntry.TABLE_NAME, projection, null, null, null, null, TaskEntry._ID+" DESC");
 
         if (cursor != null && cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
@@ -131,7 +135,7 @@ public class TasksLocalDataSource implements TasksDataSource {
                         cursor.getString(cursor.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_DESCRIPTION));
                 boolean completed =
                         cursor.getInt(cursor.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_COMPLETED)) == 1;
-                Task task = new Task(title, description, itemId, completed);
+                Task task = new Task(itemId, title, description, completed);
                 tasks.add(task);
             }
         }
@@ -155,8 +159,8 @@ public class TasksLocalDataSource implements TasksDataSource {
         ContentValues values = new ContentValues();
         values.put(TaskEntry.COLUMN_NAME_COMPLETED, true);
 
-        String seletion = TaskEntry.COLUMN_NAME_ENTRY_ID + "LIKE ?";
-        String[] seletionArgs = { taskId };
+        String seletion = TaskEntry.COLUMN_NAME_ENTRY_ID + " LIKE ?";
+        String[] seletionArgs = {taskId};
 
         db.update(TaskEntry.TABLE_NAME, values, seletion, seletionArgs);
 
@@ -170,8 +174,8 @@ public class TasksLocalDataSource implements TasksDataSource {
         ContentValues values = new ContentValues();
         values.put(TaskEntry.COLUMN_NAME_COMPLETED, false);
 
-        String seletion = TaskEntry.COLUMN_NAME_ENTRY_ID + "LIKE ?";
-        String[] seletionArgs = { taskId };
+        String seletion = TaskEntry.COLUMN_NAME_ENTRY_ID + " LIKE ?";
+        String[] seletionArgs = {taskId};
 
         db.update(TaskEntry.TABLE_NAME, values, seletion, seletionArgs);
 
@@ -183,7 +187,7 @@ public class TasksLocalDataSource implements TasksDataSource {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         String selection = TaskEntry.COLUMN_NAME_COMPLETED + " LIKE ?";
-        String[] selectionArgs = { "1" };
+        String[] selectionArgs = {"1"};
 
         db.delete(TaskEntry.TABLE_NAME, selection, selectionArgs);
 

@@ -6,6 +6,8 @@ package io.github.laucherish.puretodo;
  */
 public interface BasePresenter {
 
+    String TAG = "BasePresenter";
+
     void start();
 
 }

@@ -79,4 +79,14 @@ public class Task {
             return mDescription;
         }
     }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "mId='" + mId + '\'' +
+                ", mTitle='" + mTitle + '\'' +
+                ", mDescription='" + mDescription + '\'' +
+                ", mCompleted=" + mCompleted +
+                '}';
+    }
 }

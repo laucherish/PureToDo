@@ -6,6 +6,8 @@ package io.github.laucherish.puretodo;
  */
 public interface BaseView<T> {
 
+    String TAG = "BaseView";
+
     void setPresenter(T presenter );
 
 }

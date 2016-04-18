@@ -1,5 +1,7 @@
 package io.github.laucherish.puretodo.tasks;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +14,8 @@ import io.github.laucherish.puretodo.data.source.TasksRepository;
  * @date 16/4/14
  */
 public class TasksPresenter implements TasksContract.Presenter {
+
+    private static final String TAG = "TasksPresenter";
 
     private final TasksRepository mTasksRepository;
 
@@ -56,6 +60,7 @@ public class TasksPresenter implements TasksContract.Presenter {
                 List<Task> tasksToShow = new ArrayList<>();
 
                 for (Task task : tasks) {
+                    Log.d(TAG, "onTasksLoaded: " + task.toString());
                     switch (mCurrentFiltering) {
                         case ALL_TASKS:
                             tasksToShow.add(task);
@@ -167,6 +172,7 @@ public class TasksPresenter implements TasksContract.Presenter {
 
     /**
      * 设置Task过滤器
+     *
      * @param requestType
      */
     @Override

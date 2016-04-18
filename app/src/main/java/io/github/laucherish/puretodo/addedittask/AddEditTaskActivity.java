@@ -7,12 +7,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import io.github.laucherish.puretodo.R;
+import io.github.laucherish.puretodo.data.source.TasksRepository;
+import io.github.laucherish.puretodo.data.source.local.TasksLocalDataSource;
+import io.github.laucherish.puretodo.util.ActivityUtils;
 
 /**
  * @author laucherish
  * @date 16/4/15
  */
 public class AddEditTaskActivity extends AppCompatActivity {
+
+    public static final int REQUEST_ADD_TASK = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -24,5 +29,17 @@ public class AddEditTaskActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
+
+        AddEditTaskFragment addEditTaskFragment = (AddEditTaskFragment) getFragmentManager().findFragmentById(R.id.fl_content);
+
+        String taskId = null;
+        if (addEditTaskFragment == null) {
+            addEditTaskFragment = AddEditTaskFragment.newInstance();
+
+            ActivityUtils.addFragmentToActivity(getFragmentManager(), addEditTaskFragment, R.id.fl_content);
+        }
+
+        new AddEditTaskPresenter(TasksRepository.getInstance(TasksLocalDataSource.getInstance(this)), addEditTaskFragment, taskId);
+
     }
 }
