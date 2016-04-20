@@ -25,6 +25,7 @@ import java.util.List;
 import io.github.laucherish.puretodo.R;
 import io.github.laucherish.puretodo.addedittask.AddEditTaskActivity;
 import io.github.laucherish.puretodo.data.Task;
+import io.github.laucherish.puretodo.util.DividerItemDecoration;
 
 /**
  * @author laucherish
@@ -78,6 +79,7 @@ public class TasksFragment extends Fragment implements TasksContract.View {
         mRcvTasks = (RecyclerView) root.findViewById(R.id.rcv_tasks);
         mRcvTasks.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRcvTasks.setHasFixedSize(true);
+        mRcvTasks.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.HORIZONTAL_LIST));
         mRcvTasks.setAdapter(mTasksAdapter);
 
         mTvFilteringLabel = (TextView) root.findViewById(R.id.tv_filtering_label);
