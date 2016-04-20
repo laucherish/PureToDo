@@ -125,7 +125,8 @@ public class TasksLocalDataSource implements TasksDataSource {
         };
 
         Cursor cursor = db.query(
-                TaskEntry.TABLE_NAME, projection, null, null, null, null, TaskEntry._ID+" DESC");
+//                TaskEntry.TABLE_NAME, projection, null, null, null, null, TaskEntry._ID+" DESC"); //逆序排列
+                TaskEntry.TABLE_NAME, projection, null, null, null, null, null);
 
         if (cursor != null && cursor.getCount() > 0) {
             while (cursor.moveToNext()) {

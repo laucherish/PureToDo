@@ -119,6 +119,14 @@ public class TasksFragment extends Fragment implements TasksContract.View {
             case R.id.menu_filter:
                 showFilteringPopUpMenu();
                 break;
+            case R.id.menu_bactive:
+                mPresenter.setFiltering(TaskFilterType.ACTIVE_TASKS);
+                mPresenter.loadTasks(false);
+                break;
+            case R.id.menu_bcomplete:
+                mPresenter.setFiltering(TaskFilterType.COMPLETED_TASKS);
+                mPresenter.loadTasks(false);
+                break;
         }
         return true;
     }
@@ -180,7 +188,11 @@ public class TasksFragment extends Fragment implements TasksContract.View {
 
     @Override
     public void showNoCompletedTasks() {
-
+        showNoTasksViews(
+                getResources().getString(R.string.no_tasks_completed),
+                R.drawable.ic_verified_user_24dp,
+                false
+        );
     }
 
     @Override
@@ -255,4 +267,13 @@ public class TasksFragment extends Fragment implements TasksContract.View {
             mPresenter.activateTask(activatedTask);
         }
     };
+
+    private void showNoTasksViews(String mainText, int iconRes, boolean showAddView) {
+        mLlTasksView.setVisibility(View.GONE);
+        mViewNoTasks.setVisibility(View.VISIBLE);
+
+        mTvNoTasks.setText(mainText);
+        mIvNoTasks.setImageDrawable(getResources().getDrawable(iconRes));
+        mTvNoTasksAdd.setVisibility(showAddView ? View.VISIBLE : View.GONE);
+    }
 }

@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import java.util.List;
@@ -53,10 +52,10 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
             holder.itemView.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.touch_feedback));
         }
 
-        holder.mCbComplete.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        holder.mCbComplete.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
+            public void onClick(View v) {
+                if (!task.isCompleted()) {
                     mListener.onCompleteTaskClick(task);
                 } else {
                     mListener.onActivateTaskClick(task);
