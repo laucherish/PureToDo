@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,6 +29,7 @@ import io.github.laucherish.puretodo.R;
 import io.github.laucherish.puretodo.addedittask.AddEditTaskActivity;
 import io.github.laucherish.puretodo.addedittask.AddEditTaskFragment;
 import io.github.laucherish.puretodo.data.Task;
+import io.github.laucherish.puretodo.other.AboutActivity;
 import io.github.laucherish.puretodo.util.DividerItemDecoration;
 
 /**
@@ -136,6 +138,10 @@ public class TasksFragment extends Fragment implements TasksContract.View {
             case R.id.menu_filter:
                 showFilteringPopUpMenu();
                 break;
+            case R.id.menu_about:
+                Intent intent = new Intent(getActivity(), AboutActivity.class);
+                getActivity().startActivity(intent);
+                break;
         }
         return true;
     }
@@ -174,27 +180,31 @@ public class TasksFragment extends Fragment implements TasksContract.View {
 
     @Override
     public void showTaskMarkedCompleted() {
-
+        showMessage(getString(R.string.task_marked_complete));
     }
 
     @Override
     public void showTaskMarkedActive() {
-
+        showMessage(getString(R.string.task_marked_active));
     }
 
     @Override
     public void showCompletedTasksCleared() {
-
+        showMessage(getString(R.string.completed_tasks_cleared));
     }
 
     @Override
     public void showLoadingTasksError() {
-
+        showMessage(getString(R.string.loading_tasks_error));
     }
 
     @Override
     public void showNoTasks() {
-
+        showNoTasksViews(
+                getResources().getString(R.string.no_tasks_all),
+                R.drawable.ic_assignment_turned_in_24dp,
+                false
+        );
     }
 
     @Override
@@ -208,7 +218,11 @@ public class TasksFragment extends Fragment implements TasksContract.View {
 
     @Override
     public void showNoActiveTasks() {
-
+        showNoTasksViews(
+                getResources().getString(R.string.no_tasks_active),
+                R.drawable.ic_check_circle_24dp,
+                false
+        );
     }
 
     @Override
@@ -263,7 +277,11 @@ public class TasksFragment extends Fragment implements TasksContract.View {
 
     @Override
     public void showSuccessfullySavedMessage() {
+        showMessage(getString(R.string.successfully_saved_task_message));
+    }
 
+    private void showMessage(String message) {
+        Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
     }
 
     @Override

@@ -5,7 +5,7 @@
     <string name="task_marked_complete">完成一个待办项目</string>
     <string name="task_marked_active">激活一个待办项目</string>
     <string name="loading_tasks_error">加载待办项目列表错误</string>
-    <string name="completed_tasks_cleared">清除已完成项目</string>
+    <string name="completed_tasks_cleared">成功删除已完成项目</string>
     <string name="menu_filter">过滤器</string>
     <string name="menu_clear">删除已完成项目</string>
     <string name="menu_delete_task">删除项目</string>
@@ -28,9 +28,9 @@
         <item>@string/nav_active</item>
         <item>@string/nav_completed</item>
     </string-array>
-    <string name="nav_all">所有项目</string>
-    <string name="nav_active">未完成项目</string>
-    <string name="nav_completed">已完成项目</string>
+    <string name="nav_all">显示所有项目</string>
+    <string name="nav_active">显示未完成项目</string>
+    <string name="nav_completed">显示已完成项目</string>
     <string name="label_all">所有待办项目</string>
     <string name="label_active">未完成项目</string>
     <string name="label_completed">已完成项目</string>
@@ -39,6 +39,15 @@
     <string name="no_tasks_completed">没有已完成的项目!</string>
     <string name="no_tasks_add">增加一个待办项目 +</string>
     <string name="refresh">刷新</string>
+
     <string name="about">关于</string>
+    <string name="about_introduce">「纯净待办」- 给您最纯粹的待办体验。\n\n版本V1.0只有最基本的功能，更多功能正在按照计划开发中，开源是必须的，软件采用MVP框架实现，喜欢的朋友请Star，欢迎一起学习讨论。\n\n你的支持将是我最大的动力与褒奖！</string>
+    <string name="about_menu_action_share">分享</string>
+    <string name="about_app_name_with_introduce">纯净待办 - 最纯粹的待办应用</string>
+    <string name="about_developers">关于我</string>
+    <string name="about_introduce_and_help">介绍</string>
+    <string name="about_function">功能计划(开发中...)</string>
+    <string name="about_function_list">* 定时提醒\n* 夜间模式\n* 自选主题</string>
+    <string name="about_version">1.0</string>
 
 </resources>

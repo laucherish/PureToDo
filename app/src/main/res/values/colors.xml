@@ -8,4 +8,10 @@
 
     <drawable name="touchFeedback">#CFD8DC</drawable>
 
+    <color name="divider">#B6B6B6</color>
+
+    <color name="textColorFirst_Day">#DD000000</color>
+    <color name="textColorSecond_Day">#89000000</color>
+    <color name="textColorThird_Day">#42000000</color>
+
 </resources>

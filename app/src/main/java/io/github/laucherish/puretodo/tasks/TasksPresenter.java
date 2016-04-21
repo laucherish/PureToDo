@@ -96,7 +96,17 @@ public class TasksPresenter implements TasksContract.Presenter {
                 if (!mTasksView.isActive()) {
                     return;
                 }
-                mTasksView.showLoadingTasksError();
+                switch (mCurrentFiltering) {
+                    case ACTIVE_TASKS:
+                        mTasksView.showNoActiveTasks();
+                        break;
+                    case COMPLETED_TASKS:
+                        mTasksView.showNoCompletedTasks();
+                        break;
+                    default:
+                        mTasksView.showNoTasks();
+                        break;
+                }
             }
         });
     }

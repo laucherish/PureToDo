@@ -212,7 +212,7 @@ public class TasksLocalDataSource implements TasksDataSource {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         String selection = TaskEntry.COLUMN_NAME_COMPLETED + " LIKE ?";
-        String[] selectionArgs = {"1"};
+        String[] selectionArgs = { "1" };
 
         db.delete(TaskEntry.TABLE_NAME, selection, selectionArgs);
 
