@@ -51,6 +51,5 @@ public class AddEditTaskActivity extends AppCompatActivity {
         }
 
         new AddEditTaskPresenter(TasksRepository.getInstance(TasksLocalDataSource.getInstance(this)), addEditTaskFragment, taskId);
-
     }
 }
