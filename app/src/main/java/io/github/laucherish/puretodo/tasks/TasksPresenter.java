@@ -38,7 +38,6 @@ public class TasksPresenter implements TasksContract.Presenter {
 
     @Override
     public void result(int requestCode, int resultCode) {
-
     }
 
     @Override
