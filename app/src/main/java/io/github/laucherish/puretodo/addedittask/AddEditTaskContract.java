@@ -2,6 +2,7 @@ package io.github.laucherish.puretodo.addedittask;
 
 import io.github.laucherish.puretodo.BasePresenter;
 import io.github.laucherish.puretodo.BaseView;
+import io.github.laucherish.puretodo.data.Task;
 
 /**
  * @author laucherish
@@ -13,7 +14,7 @@ public interface AddEditTaskContract {
 
         void createTask(String title, String description);
 
-        void updateTask(String title, String description);
+        void updateTask(Task task);
 
         void populateTask();
     }

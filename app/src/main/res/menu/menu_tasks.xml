@@ -15,11 +15,7 @@
         android:title="@string/refresh"
         app:showAsAction="never"/>
     <item
-        android:id="@+id/menu_bactive"
-        android:title="@string/label_active"
-        app:showAsAction="never"/>
-    <item
-        android:id="@+id/menu_bcomplete"
-        android:title="@string/label_completed"
+        android:id="@+id/menu_about"
+        android:title="@string/about"
         app:showAsAction="never"/>
 </menu>

@@ -43,8 +43,9 @@ public class AddEditTaskPresenter implements AddEditTaskContract.Presenter {
     }
 
     @Override
-    public void updateTask(String title, String description) {
-
+    public void updateTask(Task task) {
+        mTasksRepository.updateTask(task);
+        mAddTaskView.showTasksList();
     }
 
     @Override

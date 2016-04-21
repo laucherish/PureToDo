@@ -60,6 +60,11 @@ public class TasksRepository implements TasksDataSource {
     }
 
     @Override
+    public void updateTask(Task task) {
+        mTasksLocalDataSource.updateTask(task);
+    }
+
+    @Override
     public void clearCompletedTasks() {
         mTasksLocalDataSource.clearCompletedTasks();
     }

@@ -38,6 +38,8 @@ public interface TasksDataSource {
 
     void activateTask(String taskId);
 
+    void updateTask(Task task);
+
     void clearCompletedTasks();
 
     void refreshTasks();

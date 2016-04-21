@@ -7,17 +7,19 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
 import io.github.laucherish.puretodo.R;
+import io.github.laucherish.puretodo.data.Task;
 
 /**
  * @author laucherish
  * @date 16/4/15
  */
-public class AddEditTaskFragment extends Fragment implements AddEditTaskContract.View{
+public class AddEditTaskFragment extends Fragment implements AddEditTaskContract.View {
 
     public static final String ARGUMENT_EDIT_TASK_ID = "EDIT_TASK_ID";
 
@@ -73,10 +75,21 @@ public class AddEditTaskFragment extends Fragment implements AddEditTaskContract
                 if (isNewTask()) {
                     mPresenter.createTask(mEtTitle.getText().toString(), mEtDescription.getText().toString());
                 } else {
-                    mPresenter.updateTask(mEtTitle.getText().toString(), mEtDescription.getText().toString());
+                    mPresenter.updateTask(new Task(mEditedTaskId, mEtTitle.getText().toString(), mEtDescription.getText().toString(), false));
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                getActivity().finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override

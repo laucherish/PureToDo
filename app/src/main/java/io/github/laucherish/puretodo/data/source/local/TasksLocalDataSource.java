@@ -45,6 +45,7 @@ public class TasksLocalDataSource implements TasksDataSource {
         values.put(TaskEntry.COLUMN_NAME_TITLE, task.getTitle());
         values.put(TaskEntry.COLUMN_NAME_DESCRIPTION, task.getDescription());
         values.put(TaskEntry.COLUMN_NAME_COMPLETED, task.isCompleted());
+        values.put(TaskEntry.COLUMN_NAME_TIME, task.getTime());
 
         long flag = db.insert(TaskEntry.TABLE_NAME, null, values);
         Log.d(TAG, "saveTask: " + flag + task.getTitle());
@@ -81,7 +82,8 @@ public class TasksLocalDataSource implements TasksDataSource {
                 TaskEntry.COLUMN_NAME_ENTRY_ID,
                 TaskEntry.COLUMN_NAME_TITLE,
                 TaskEntry.COLUMN_NAME_DESCRIPTION,
-                TaskEntry.COLUMN_NAME_COMPLETED
+                TaskEntry.COLUMN_NAME_COMPLETED,
+                TaskEntry.COLUMN_NAME_TIME
         };
 
         String selection = TaskEntry.COLUMN_NAME_ENTRY_ID + " LIKE ?";
@@ -97,7 +99,8 @@ public class TasksLocalDataSource implements TasksDataSource {
             String title = cursor.getString(cursor.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_TITLE));
             String description = cursor.getString(cursor.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_DESCRIPTION));
             boolean completed = cursor.getInt(cursor.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_COMPLETED)) == 1;
-            task = new Task(itemId, title, description, completed);
+            long time = cursor.getInt(cursor.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_TIME));
+            task = new Task(itemId, title, description, completed, time);
         }
         if (cursor != null) {
             cursor.close();
@@ -121,12 +124,13 @@ public class TasksLocalDataSource implements TasksDataSource {
                 TaskEntry.COLUMN_NAME_ENTRY_ID,
                 TaskEntry.COLUMN_NAME_TITLE,
                 TaskEntry.COLUMN_NAME_DESCRIPTION,
-                TaskEntry.COLUMN_NAME_COMPLETED
+                TaskEntry.COLUMN_NAME_COMPLETED,
+                TaskEntry.COLUMN_NAME_TIME
         };
 
+        String orderBy = TaskEntry.COLUMN_NAME_COMPLETED + "," + TaskEntry.COLUMN_NAME_TIME + " DESC";
         Cursor cursor = db.query(
-//                TaskEntry.TABLE_NAME, projection, null, null, null, null, TaskEntry._ID+" DESC"); //逆序排列
-                TaskEntry.TABLE_NAME, projection, null, null, null, null, null);
+                TaskEntry.TABLE_NAME, projection, null, null, null, null, orderBy);
 
         if (cursor != null && cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
@@ -136,7 +140,8 @@ public class TasksLocalDataSource implements TasksDataSource {
                         cursor.getString(cursor.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_DESCRIPTION));
                 boolean completed =
                         cursor.getInt(cursor.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_COMPLETED)) == 1;
-                Task task = new Task(itemId, title, description, completed);
+                long time = cursor.getInt(cursor.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_TIME));
+                Task task = new Task(itemId, title, description, completed, time);
                 tasks.add(task);
             }
         }
@@ -177,6 +182,25 @@ public class TasksLocalDataSource implements TasksDataSource {
 
         String seletion = TaskEntry.COLUMN_NAME_ENTRY_ID + " LIKE ?";
         String[] seletionArgs = {taskId};
+
+        db.update(TaskEntry.TABLE_NAME, values, seletion, seletionArgs);
+
+        db.close();
+    }
+
+    @Override
+    public void updateTask(Task task) {
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(TaskEntry.COLUMN_NAME_ENTRY_ID, task.getId());
+        values.put(TaskEntry.COLUMN_NAME_TITLE, task.getTitle());
+        values.put(TaskEntry.COLUMN_NAME_DESCRIPTION, task.getDescription());
+        values.put(TaskEntry.COLUMN_NAME_COMPLETED, task.isCompleted());
+        values.put(TaskEntry.COLUMN_NAME_TIME, task.getTime());
+
+        String seletion = TaskEntry.COLUMN_NAME_ENTRY_ID + " LIKE ?";
+        String[] seletionArgs = {task.getId()};
 
         db.update(TaskEntry.TABLE_NAME, values, seletion, seletionArgs);
 

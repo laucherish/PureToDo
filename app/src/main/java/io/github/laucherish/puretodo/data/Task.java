@@ -18,11 +18,14 @@ public class Task {
 
     private boolean mCompleted;
 
+    private long mTime;
+
     public Task(String title, String description) {
         mId = UUID.randomUUID().toString();
         mTitle = title;
         mDescription = description;
         mCompleted = false;
+        mTime = System.currentTimeMillis();
     }
 
     public Task(String id, String title, String description, boolean completed) {
@@ -30,6 +33,15 @@ public class Task {
         mTitle = title;
         mDescription = description;
         mCompleted = completed;
+        mTime = System.currentTimeMillis();
+    }
+
+    public Task(String id, String title, String description, boolean completed, long time) {
+        mId = id;
+        mTitle = title;
+        mDescription = description;
+        mCompleted = completed;
+        mTime = time;
     }
 
     public String getId() {
@@ -70,6 +82,14 @@ public class Task {
 
     public void setCompleted(boolean completed) {
         mCompleted = completed;
+    }
+
+    public void setTime(long time) {
+        mTime = time;
+    }
+
+    public long getTime() {
+        return mTime;
     }
 
     public String getTitleForList(){

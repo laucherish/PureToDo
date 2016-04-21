@@ -1,43 +1,44 @@
 <resources>
     <string name="app_name">纯净待办</string>
-    <string name="add_task">New TO-DO</string>
-    <string name="edit_task">Edit TO-DO</string>
-    <string name="task_marked_complete">Task marked complete</string>
-    <string name="task_marked_active">Task marked active</string>
-    <string name="loading_tasks_error">Error while loading tasks</string>
-    <string name="completed_tasks_cleared">Completed tasks cleared</string>
-    <string name="menu_filter">Filter</string>
-    <string name="menu_clear">Clear completed</string>
-    <string name="menu_delete_task">Delete task</string>
-    <string name="navigation_view_header_title">TO-DOs</string>
-    <string name="title_hint">Title</string>
-    <string name="description_hint">Enter your TO-DO here.</string>
-    <string name="empty_task_message">TO DOs cannot be empty</string>
-    <string name="successfully_saved_task_message">TO-DO saved</string>
-    <string name="list_title">TO-DO List</string>
-    <string name="statistics_title">Statistics</string>
-    <string name="statistics_no_tasks">You have no tasks.</string>
-    <string name="statistics_active_tasks">Active tasks:</string>
-    <string name="statistics_completed_tasks">Completed tasks:</string>
-    <string name="statistics_error">Error loading statistics.</string>
-    <string name="no_data">No data</string>
-    <string name="loading">LOADING</string>
+    <string name="add_task">新的待办项目</string>
+    <string name="edit_task">编辑待办项目</string>
+    <string name="task_marked_complete">完成一个待办项目</string>
+    <string name="task_marked_active">激活一个待办项目</string>
+    <string name="loading_tasks_error">加载待办项目列表错误</string>
+    <string name="completed_tasks_cleared">清除已完成项目</string>
+    <string name="menu_filter">过滤器</string>
+    <string name="menu_clear">删除已完成项目</string>
+    <string name="menu_delete_task">删除项目</string>
+    <string name="navigation_view_header_title">待办项目列表</string>
+    <string name="title_hint">标题</string>
+    <string name="description_hint">待办项目内容</string>
+    <string name="empty_task_message">待办项目不能为空</string>
+    <string name="successfully_saved_task_message">成功保存待办项目</string>
+    <string name="list_title">待办项目列表</string>
+    <string name="statistics_title">统计</string>
+    <string name="statistics_no_tasks">没有待办项目</string>
+    <string name="statistics_active_tasks">未完成的项目:</string>
+    <string name="statistics_completed_tasks">已完成的项目:</string>
+    <string name="statistics_error">加载统计信息错误.</string>
+    <string name="no_data">没有数据</string>
+    <string name="loading">加载中...</string>
 
     <string-array name="list_tasks_array">
         <item>@string/nav_all</item>
         <item>@string/nav_active</item>
         <item>@string/nav_completed</item>
     </string-array>
-    <string name="nav_all">All</string>
-    <string name="nav_active">Active</string>
-    <string name="nav_completed">Completed</string>
-    <string name="label_all">All TO-DOs</string>
-    <string name="label_active">Active TO-DOs</string>
-    <string name="label_completed">Completed TO-DOs</string>
-    <string name="no_tasks_all">You have no TO-DOs!</string>
-    <string name="no_tasks_active">You have no active TO-DOs!</string>
-    <string name="no_tasks_completed">You have no completed TO-DOs!</string>
-    <string name="no_tasks_add">Add a TO-DO item +</string>
-    <string name="refresh">Refresh</string>
+    <string name="nav_all">所有项目</string>
+    <string name="nav_active">未完成项目</string>
+    <string name="nav_completed">已完成项目</string>
+    <string name="label_all">所有待办项目</string>
+    <string name="label_active">未完成项目</string>
+    <string name="label_completed">已完成项目</string>
+    <string name="no_tasks_all">没有待办项目!</string>
+    <string name="no_tasks_active">没有未完成的项目!</string>
+    <string name="no_tasks_completed">没有已完成的项目!</string>
+    <string name="no_tasks_add">增加一个待办项目 +</string>
+    <string name="refresh">刷新</string>
+    <string name="about">关于</string>
 
 </resources>

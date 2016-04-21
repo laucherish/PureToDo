@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -24,6 +26,7 @@ import java.util.List;
 
 import io.github.laucherish.puretodo.R;
 import io.github.laucherish.puretodo.addedittask.AddEditTaskActivity;
+import io.github.laucherish.puretodo.addedittask.AddEditTaskFragment;
 import io.github.laucherish.puretodo.data.Task;
 import io.github.laucherish.puretodo.util.DividerItemDecoration;
 
@@ -50,6 +53,8 @@ public class TasksFragment extends Fragment implements TasksContract.View {
     private LinearLayout mLlTasksView;
 
     private TextView mTvFilteringLabel;
+
+    private ActionBar mActionBar;
 
     public TasksFragment() {
     }
@@ -79,7 +84,7 @@ public class TasksFragment extends Fragment implements TasksContract.View {
         mRcvTasks = (RecyclerView) root.findViewById(R.id.rcv_tasks);
         mRcvTasks.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRcvTasks.setHasFixedSize(true);
-        mRcvTasks.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.HORIZONTAL_LIST));
+        mRcvTasks.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL_LIST));
         mRcvTasks.setAdapter(mTasksAdapter);
 
         mTvFilteringLabel = (TextView) root.findViewById(R.id.tv_filtering_label);
@@ -104,6 +109,16 @@ public class TasksFragment extends Fragment implements TasksContract.View {
     }
 
     @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        try {
+            mActionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_tasks, menu);
         super.onCreateOptionsMenu(menu, inflater);
@@ -120,14 +135,6 @@ public class TasksFragment extends Fragment implements TasksContract.View {
                 break;
             case R.id.menu_filter:
                 showFilteringPopUpMenu();
-                break;
-            case R.id.menu_bactive:
-                mPresenter.setFiltering(TaskFilterType.ACTIVE_TASKS);
-                mPresenter.loadTasks(false);
-                break;
-            case R.id.menu_bcomplete:
-                mPresenter.setFiltering(TaskFilterType.COMPLETED_TASKS);
-                mPresenter.loadTasks(false);
                 break;
         }
         return true;
@@ -160,7 +167,9 @@ public class TasksFragment extends Fragment implements TasksContract.View {
 
     @Override
     public void showTaskDetailsUi(String taskId) {
-
+        Intent intent = new Intent(getActivity(), AddEditTaskActivity.class);
+        intent.putExtra(AddEditTaskFragment.ARGUMENT_EDIT_TASK_ID,taskId);
+        startActivityForResult(intent, AddEditTaskActivity.REQUEST_ADD_TASK);
     }
 
     @Override
@@ -211,12 +220,21 @@ public class TasksFragment extends Fragment implements TasksContract.View {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.active:
+                        if (mActionBar != null) {
+                            mActionBar.setTitle(R.string.label_active);
+                        }
                         mPresenter.setFiltering(TaskFilterType.ACTIVE_TASKS);
                         break;
                     case R.id.completed:
+                        if (mActionBar != null) {
+                            mActionBar.setTitle(R.string.label_completed);
+                        }
                         mPresenter.setFiltering(TaskFilterType.COMPLETED_TASKS);
                         break;
                     default:
+                        if (mActionBar != null) {
+                            mActionBar.setTitle(R.string.label_all);
+                        }
                         mPresenter.setFiltering(TaskFilterType.ALL_TASKS);
                         break;
                 }

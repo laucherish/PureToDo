@@ -16,6 +16,8 @@ public class TasksActivity extends AppCompatActivity {
 
     private TasksPresenter mTasksPresenter;
 
+    public ActionBar mActionBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +26,7 @@ public class TasksActivity extends AppCompatActivity {
         // 设置toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
+        mActionBar = getSupportActionBar();
 
         TasksFragment tasksFragment = (TasksFragment) getFragmentManager().findFragmentById(R.id.fl_content);
         if (tasksFragment == null) {

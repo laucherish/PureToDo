@@ -1,6 +1,7 @@
 package io.github.laucherish.puretodo.tasks;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,9 +48,11 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
         holder.mTvTitle.setText(task.getTitle());
         holder.mCbComplete.setChecked(task.isCompleted());
         if (task.isCompleted()) {
-            holder.itemView.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.list_completed_touch_feedback));
+            holder.mTvTitle.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG);
+//            holder.itemView.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.list_completed_touch_feedback));
         } else {
-            holder.itemView.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.touch_feedback));
+            holder.mTvTitle.getPaint().setFlags(0);
+//            holder.itemView.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.touch_feedback));
         }
 
         holder.mCbComplete.setOnClickListener(new View.OnClickListener() {

@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:gravity="center_vertical"
+            android:visibility="gone"
             android:layout_marginLeft="@dimen/list_item_padding"
             android:layout_marginRight="@dimen/list_item_padding"
             android:layout_marginTop="@dimen/activity_vertical_margin"
