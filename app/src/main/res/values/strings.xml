@@ -28,6 +28,7 @@
         <item>@string/nav_active</item>
         <item>@string/nav_completed</item>
     </string-array>
+
     <string name="nav_all">显示所有项目</string>
     <string name="nav_active">显示未完成项目</string>
     <string name="nav_completed">显示已完成项目</string>
