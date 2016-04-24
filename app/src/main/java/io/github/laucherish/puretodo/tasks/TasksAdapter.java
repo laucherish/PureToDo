@@ -72,6 +72,14 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
                 mListener.onTaskClick(task);
             }
         });
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                mListener.onTaskLongClick(task);
+                return true;
+            }
+        });
     }
 
     @Override
@@ -104,6 +112,8 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
     public interface TaskItemListener{
 
         void onTaskClick(Task clickedTask);
+
+        void onTaskLongClick(Task longClickedTask);
 
         void onCompleteTaskClick(Task completedTask);
 

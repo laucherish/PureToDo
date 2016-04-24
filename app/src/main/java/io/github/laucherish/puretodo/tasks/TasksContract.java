@@ -22,6 +22,8 @@ public interface TasksContract {
 
         void openTaskDetail(Task requestedTask);
 
+        void deleteTask(Task deleteTask);
+
         void completeTask(Task completeTask);
 
         void activateTask(Task activateTask);
@@ -31,6 +33,10 @@ public interface TasksContract {
         void setFiltering(TaskFilterType requestType);
 
         TaskFilterType getFiltering();
+
+        int getFilterInt();
+
+        void setFilterInt(int filterInt);
     }
 
     interface View extends BaseView<Presenter> {
@@ -42,6 +48,8 @@ public interface TasksContract {
         void showAddTask();
 
         void showTaskDetailsUi(String taskId);
+
+        void showTaskToDelete(Task task);
 
         void showTaskMarkedCompleted();
 

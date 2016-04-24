@@ -4,6 +4,7 @@
     <string name="edit_task">编辑待办项目</string>
     <string name="task_marked_complete">完成一个待办项目</string>
     <string name="task_marked_active">激活一个待办项目</string>
+    <string name="task_to_delete">确定要删除这个待办项目吗?</string>
     <string name="loading_tasks_error">加载待办项目列表错误</string>
     <string name="completed_tasks_cleared">成功删除已完成项目</string>
     <string name="menu_filter">过滤器</string>
@@ -22,6 +23,7 @@
     <string name="statistics_error">加载统计信息错误.</string>
     <string name="no_data">没有数据</string>
     <string name="loading">加载中...</string>
+    <string name="ok">确定</string>
 
     <string-array name="list_tasks_array">
         <item>@string/nav_all</item>

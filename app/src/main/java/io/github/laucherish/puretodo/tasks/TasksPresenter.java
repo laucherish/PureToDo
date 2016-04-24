@@ -159,6 +159,12 @@ public class TasksPresenter implements TasksContract.Presenter {
     }
 
     @Override
+    public void deleteTask(Task deleteTask) {
+        mTasksRepository.deleteTask(deleteTask.getId());
+        loadTasks(false, false);
+    }
+
+    @Override
     public void completeTask(Task completeTask) {
         mTasksRepository.completeTask(completeTask.getId());
         mTasksView.showTaskMarkedCompleted();
@@ -192,5 +198,32 @@ public class TasksPresenter implements TasksContract.Presenter {
     @Override
     public TaskFilterType getFiltering() {
         return mCurrentFiltering;
+    }
+
+    @Override
+    public int getFilterInt() {
+        switch (mCurrentFiltering) {
+            case ACTIVE_TASKS:
+                return 1;
+            case COMPLETED_TASKS:
+                return 2;
+            default:
+                return 0;
+        }
+    }
+
+    @Override
+    public void setFilterInt(int filterInt) {
+        switch (filterInt) {
+            case 1:
+                mCurrentFiltering = TaskFilterType.ACTIVE_TASKS;
+                break;
+            case 2:
+                mCurrentFiltering = TaskFilterType.COMPLETED_TASKS;
+                break;
+            default:
+                mCurrentFiltering = TaskFilterType.ALL_TASKS;
+                break;
+        }
     }
 }

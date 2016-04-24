@@ -179,6 +179,16 @@ public class TasksFragment extends Fragment implements TasksContract.View {
     }
 
     @Override
+    public void showTaskToDelete(final Task task) {
+        Snackbar.make(getView(),getString(R.string.task_to_delete),Snackbar.LENGTH_LONG).setAction(R.string.ok, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.deleteTask(task);
+            }
+        }).show();
+    }
+
+    @Override
     public void showTaskMarkedCompleted() {
         showMessage(getString(R.string.task_marked_complete));
     }
@@ -293,6 +303,11 @@ public class TasksFragment extends Fragment implements TasksContract.View {
         @Override
         public void onTaskClick(Task clickedTask) {
             mPresenter.openTaskDetail(clickedTask);
+        }
+
+        @Override
+        public void onTaskLongClick(Task longClickedTask) {
+            showTaskToDelete(longClickedTask);
         }
 
         @Override
