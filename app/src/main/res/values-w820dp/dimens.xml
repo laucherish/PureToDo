@@ -6,4 +6,6 @@
 
     <dimen name="fab_margin">24dp</dimen>
 
+    <dimen name="widget_margin">0dp</dimen>
+
 </resources>
