@@ -44,7 +44,7 @@
     <string name="refresh">刷新</string>
 
     <string name="about">关于</string>
-    <string name="about_introduce">「纯净待办」- 给您最纯粹的待办体验。\n\n版本V1.0只有最基本的功能，更多功能正在按照计划开发中，开源是必须的，软件采用MVP框架实现，喜欢的朋友请Star，欢迎一起学习讨论。\n\n你的支持将是我最大的动力与褒奖！</string>
+    <string name="about_introduce">「纯净待办」- 给您最纯粹的待办体验。\n\n版本V1.1增加了桌面小部件功能，默认长宽最小为2x1，可自由调整大小。这个桌面插件做的比较久，主要是要保证做得纯净美观，简洁易用，让大家喜欢。欢迎大家提出意见和建议。\n\n版本V1.0只有最基本的功能，更多功能正在按照计划开发中，开源是必须的，软件采用MVP框架实现，喜欢的朋友请Star，欢迎一起学习讨论。\n\n你的支持将是我最大的动力与褒奖！</string>
     <string name="about_menu_action_share">分享</string>
     <string name="about_app_name_with_introduce">纯净待办 - 最纯粹的待办应用</string>
     <string name="about_developers">关于我</string>

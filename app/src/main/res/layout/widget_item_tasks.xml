@@ -9,11 +9,12 @@
 
     <ImageButton
         android:id="@+id/iv_widget_done"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:src="@drawable/ic_check_circle_24dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/widget_checkbox"
         android:background="@android:color/transparent"/>
 
     <TextView

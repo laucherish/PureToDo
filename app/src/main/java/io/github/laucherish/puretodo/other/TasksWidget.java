@@ -16,6 +16,7 @@ import io.github.laucherish.puretodo.R;
 import io.github.laucherish.puretodo.addedittask.AddEditTaskActivity;
 import io.github.laucherish.puretodo.addedittask.AddEditTaskFragment;
 import io.github.laucherish.puretodo.data.source.local.TasksLocalDataSource;
+import io.github.laucherish.puretodo.tasks.TasksActivity;
 
 /**
  * @author laucherish
@@ -83,6 +84,11 @@ public class TasksWidget extends AppWidgetProvider {
             Intent addIntent = new Intent(context, AddEditTaskActivity.class);
             PendingIntent addPendingIntent = PendingIntent.getActivity(context, 0, addIntent, 0);
             mView.setOnClickPendingIntent(R.id.iv_widget_add, addPendingIntent);
+
+            // 设置 AppWidget Add 点击事件
+            Intent labelIntent = new Intent(context, TasksActivity.class);
+            PendingIntent labelPendingIntent = PendingIntent.getActivity(context, 0, labelIntent, 0);
+            mView.setOnClickPendingIntent(R.id.tv_widget_lable, labelPendingIntent);
 
             appWidgetManager.updateAppWidget(widgetId, mView);
         }
