@@ -3,10 +3,10 @@
 <appwidget-provider
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:initialLayout="@layout/widget_tasks42"
-    android:minHeight="110dp"
-    android:minWidth="250dp"
-    android:minResizeHeight="110dp"
+    android:minHeight="40dp"
+    android:minResizeHeight="40dp"
     android:minResizeWidth="110dp"
+    android:minWidth="110dp"
     android:resizeMode="vertical|horizontal"
     android:updatePeriodMillis="1800000">
 </appwidget-provider>

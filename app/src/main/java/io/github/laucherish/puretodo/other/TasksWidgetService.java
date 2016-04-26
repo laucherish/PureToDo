@@ -3,12 +3,16 @@ package io.github.laucherish.puretodo.other;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
+import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.github.laucherish.puretodo.R;
+import io.github.laucherish.puretodo.data.Task;
+import io.github.laucherish.puretodo.data.source.local.TasksLocalDataSource;
 
 /**
  * @author laucherish
@@ -27,6 +31,8 @@ public class TasksWidgetService extends RemoteViewsService {
 
         List<String> mCollections = new ArrayList<String>();
 
+        List<Task> mTasks = new ArrayList<>();
+
         Context mContext = null;
 
         public TasksWidgetFactory(Context context, Intent intent) {
@@ -35,7 +41,7 @@ public class TasksWidgetService extends RemoteViewsService {
 
         @Override
         public int getCount() {
-            return mCollections.size();
+            return mTasks.size();
         }
 
         @Override
@@ -50,18 +56,23 @@ public class TasksWidgetService extends RemoteViewsService {
 
         @Override
         public RemoteViews getViewAt(int position) {
+            Task task = mTasks.get(position);
             RemoteViews mView = new RemoteViews(mContext.getPackageName(),
-                    android.R.layout.simple_list_item_1);
-            mView.setTextViewText(android.R.id.text1, mCollections.get(position));
-            mView.setTextColor(android.R.id.text1, Color.BLACK);
+                    R.layout.widget_item_tasks);
+            mView.setTextViewText(R.id.tv_widget_title, task.getTitle());
+            mView.setTextColor(R.id.tv_widget_title, Color.BLACK);
+
+            final Intent doneIntent = new Intent();
+//            doneIntent.setAction(TasksWidget.ACTION_DONE);
+            doneIntent.putExtra(TasksWidget.EXTRA_STRING, task.getId());
+            doneIntent.putExtra(TasksWidget.EXTRA_DO, TasksWidget.DO_DONE);
+            mView.setOnClickFillInIntent(R.id.iv_widget_done, doneIntent);
 
             final Intent fillInIntent = new Intent();
-            fillInIntent.setAction(TasksWidget.ACTION_TOAST);
-            final Bundle bundle = new Bundle();
-            bundle.putString(TasksWidget.EXTRA_STRING,
-                    mCollections.get(position));
-            fillInIntent.putExtras(bundle);
-            mView.setOnClickFillInIntent(android.R.id.text1, fillInIntent);
+//            fillInIntent.setAction(TasksWidget.ACTION_EDIT);
+            fillInIntent.putExtra(TasksWidget.EXTRA_STRING, task.getId());
+            fillInIntent.putExtra(TasksWidget.EXTRA_DO, TasksWidget.DO_EDIT);
+            mView.setOnClickFillInIntent(R.id.tv_widget_title, fillInIntent);
             return mView;
         }
 
@@ -77,19 +88,19 @@ public class TasksWidgetService extends RemoteViewsService {
 
         @Override
         public void onCreate() {
+            Log.d(TAG, "onCreate: ");
             initData();
         }
 
         @Override
         public void onDataSetChanged() {
+            Log.d(TAG, "onDataSetChanged: ");
             initData();
         }
 
         private void initData() {
-            mCollections.clear();
-            for (int i = 1; i <= 10; i++) {
-                mCollections.add("ListView item " + i);
-            }
+            mTasks.clear();
+            mTasks = TasksLocalDataSource.getInstance(mContext).getAllTasksSync();
         }
 
         @Override

@@ -1,6 +1,7 @@
 package io.github.laucherish.puretodo.tasks;
 
 import android.app.Fragment;
+import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -158,6 +159,11 @@ public class TasksFragment extends Fragment implements TasksContract.View {
 
     @Override
     public void showTasks(List<Task> tasks) {
+
+        // 发送广播给AppWidget
+        Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        getActivity().sendBroadcast(intent);
+
         Log.d(TAG, "showTasks: " + tasks.size());
         mTasksAdapter.replaceData(tasks);
 

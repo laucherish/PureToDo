@@ -3,13 +3,25 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/widget_textview_style"
+    android:gravity="center_vertical"
     android:orientation="horizontal">
 
+    <ImageButton
+        android:id="@+id/iv_widget_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:src="@drawable/ic_check_circle_24dp"
+        android:background="@android:color/transparent"/>
+
     <TextView
-        android:background="@android:color/white"
         android:id="@+id/tv_widget_title"
-        android:textSize="20sp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="30dp"
+        android:maxLines="1"
+        android:gravity="center_vertical"
+        android:textSize="14sp"/>
 
 </LinearLayout>

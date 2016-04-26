@@ -4,13 +4,18 @@ import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import io.github.laucherish.puretodo.R;
+import io.github.laucherish.puretodo.addedittask.AddEditTaskActivity;
+import io.github.laucherish.puretodo.addedittask.AddEditTaskFragment;
+import io.github.laucherish.puretodo.data.source.local.TasksLocalDataSource;
 
 /**
  * @author laucherish
@@ -20,35 +25,64 @@ public class TasksWidget extends AppWidgetProvider {
 
     private static final String TAG = "TasksWidget";
 
-    public static final String ACTION_TOAST = "com.dharmangsoni.widgets.ACTION_TOAST";
-    public static final String EXTRA_STRING = "com.dharmangsoni.widgets.EXTRA_STRING";
+    public static final String ACTION_DONE = "io.github.laucherish.puretodo.ACTION_DONE";
+    public static final String EXTRA_STRING = "io.github.laucherish.puretodo.EXTRA_STRING";
+    public static final String EXTRA_DO = "io.github.laucherish.puretodo.EXTRA_DO";
+    public static final int DO_DONE = 1;
+    public static final int DO_EDIT = 2;
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getAction().equals(ACTION_TOAST)) {
-            String item = intent.getExtras().getString(EXTRA_STRING);
-            Toast.makeText(context, item, Toast.LENGTH_LONG).show();
+        Log.d(TAG, "onReceive: " + intent.getAction());
+
+        if (intent.getAction().equals(ACTION_DONE)) {
+            String taskId = intent.getExtras().getString(EXTRA_STRING);
+            int doInt = intent.getExtras().getInt(EXTRA_DO);
+
+            switch (doInt) {
+                case DO_DONE:
+                    TasksLocalDataSource.getInstance(context).completeTask(taskId);
+                    Toast.makeText(context, R.string.task_marked_complete, Toast.LENGTH_LONG).show();
+                    break;
+                case DO_EDIT:
+                    Intent editIntent = new Intent(context, AddEditTaskActivity.class);
+                    editIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    editIntent.putExtra(AddEditTaskFragment.ARGUMENT_EDIT_TASK_ID, taskId);
+                    context.startActivity(editIntent);
+                    break;
+            }
         }
+
         super.onReceive(context, intent);
+
+        // 更新 Widget
+        final AppWidgetManager mgr = AppWidgetManager.getInstance(context);
+        final ComponentName cn = new ComponentName(context, TasksWidget.class);
+        mgr.notifyAppWidgetViewDataChanged(mgr.getAppWidgetIds(cn), R.id.lv_widget);
+
+
     }
 
     @SuppressLint("NewApi")
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,
                          int[] appWidgetIds) {
+        Log.d(TAG, "onUpdate: ");
         for (int widgetId : appWidgetIds) {
             RemoteViews mView = initViews(context, appWidgetManager, widgetId);
 
-            // Adding collection list item handler
-            final Intent onItemClick = new Intent(context, TasksWidget.class);
-            onItemClick.setAction(ACTION_TOAST);
-            onItemClick.setData(Uri.parse(onItemClick
-                    .toUri(Intent.URI_INTENT_SCHEME)));
-            final PendingIntent onClickPendingIntent = PendingIntent
-                    .getBroadcast(context, 0, onItemClick,
-                            PendingIntent.FLAG_UPDATE_CURRENT);
-            mView.setPendingIntentTemplate(R.id.lv_widget,
-                    onClickPendingIntent);
+            // 设置 AppWidget Done 点击事件
+            final Intent doneIntent = new Intent(context, TasksWidget.class);
+            doneIntent.setAction(ACTION_DONE);
+            doneIntent.setData(Uri.parse(doneIntent.toUri(Intent.URI_INTENT_SCHEME)));
+            final PendingIntent donePendingIntent = PendingIntent
+                    .getBroadcast(context, 0, doneIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            mView.setPendingIntentTemplate(R.id.lv_widget, donePendingIntent);
+
+            // 设置 AppWidget Add 点击事件
+            Intent addIntent = new Intent(context, AddEditTaskActivity.class);
+            PendingIntent addPendingIntent = PendingIntent.getActivity(context, 0, addIntent, 0);
+            mView.setOnClickPendingIntent(R.id.iv_widget_add, addPendingIntent);
 
             appWidgetManager.updateAppWidget(widgetId, mView);
         }

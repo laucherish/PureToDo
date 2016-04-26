@@ -158,6 +158,46 @@ public class TasksLocalDataSource implements TasksDataSource {
         }
     }
 
+    public List<Task> getAllTasksSync() {
+        List<Task> tasks = new ArrayList<>();
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+        String[] projection = {
+                TaskEntry.COLUMN_NAME_ENTRY_ID,
+                TaskEntry.COLUMN_NAME_TITLE,
+                TaskEntry.COLUMN_NAME_DESCRIPTION,
+                TaskEntry.COLUMN_NAME_COMPLETED,
+                TaskEntry.COLUMN_NAME_TIME
+        };
+
+        String orderBy = TaskEntry.COLUMN_NAME_COMPLETED + "," + TaskEntry.COLUMN_NAME_TIME + " DESC";
+        Cursor cursor = db.query(
+                TaskEntry.TABLE_NAME, projection, null, null, null, null, orderBy);
+
+        if (cursor != null && cursor.getCount() > 0) {
+            while (cursor.moveToNext()) {
+                String itemId = cursor.getString(cursor.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_ENTRY_ID));
+                String title = cursor.getString(cursor.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_TITLE));
+                String description =
+                        cursor.getString(cursor.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_DESCRIPTION));
+                boolean completed =
+                        cursor.getInt(cursor.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_COMPLETED)) == 1;
+                long time = cursor.getInt(cursor.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_TIME));
+                Task task = new Task(itemId, title, description, completed, time);
+                if (!completed) {
+                    tasks.add(task);
+                }
+            }
+        }
+        if (cursor != null) {
+            cursor.close();
+        }
+
+        db.close();
+
+        return tasks;
+    }
+
     @Override
     public void completeTask(String taskId) {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
@@ -212,7 +252,7 @@ public class TasksLocalDataSource implements TasksDataSource {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         String selection = TaskEntry.COLUMN_NAME_COMPLETED + " LIKE ?";
-        String[] selectionArgs = { "1" };
+        String[] selectionArgs = {"1"};
 
         db.delete(TaskEntry.TABLE_NAME, selection, selectionArgs);
 
