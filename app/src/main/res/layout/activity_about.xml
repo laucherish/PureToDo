@@ -28,8 +28,8 @@
                 android:background="@color/colorPrimary"
                 android:fitsSystemWindows="true"
                 android:gravity="center"
-                app:layout_collapseMode="parallax"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                app:layout_collapseMode="parallax">
 
                 <ImageView
                     android:layout_width="96dp"
