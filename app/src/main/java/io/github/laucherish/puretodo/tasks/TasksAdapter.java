@@ -45,7 +45,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
         }
         final Task task = mTasks.get(position);
 
-        holder.mTvTitle.setText(task.getTitle());
+        holder.mTvTitle.setText(task.getTitleForList());
         holder.mCbComplete.setChecked(task.isCompleted());
         if (task.isCompleted()) {
             holder.mTvTitle.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG);

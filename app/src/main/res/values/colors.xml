@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#00796B</color>
     <color name="colorAccent">#FFAB40</color>
 
+    <color name="colorPrimaryTrans">#D0009688</color>
+
     <drawable name="completedTaskBackground">#CCCCCC</drawable>
 
     <drawable name="touchFeedback">#CFD8DC</drawable>

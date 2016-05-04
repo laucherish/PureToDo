@@ -5,37 +5,42 @@
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f1f1f1">
+    android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="230dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        >
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:contentScrim="?attr/colorPrimary"
+            android:layout_height="256dp"
+            android:fitsSystemWindows="true"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:expandedTitleTextAppearance="@style/CollapsingToolbarTitleStyle.About"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="230dp"
+                android:layout_height="256dp"
                 android:background="@color/colorPrimary"
+                android:fitsSystemWindows="true"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                app:layout_collapseMode="parallax">
 
                 <ImageView
                     android:layout_width="96dp"
                     android:layout_height="96dp"
+                    android:layout_marginTop="24dp"
                     android:src="@mipmap/ic_launcher"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:gravity="center"
                     android:text="@string/about_app_name_with_introduce"
                     android:textColor="@android:color/white"
@@ -46,16 +51,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:text="1.0"
                     android:textColor="@android:color/white"
-                    android:textSize="14sp"
-                    tools:text="Version 1.0"/>
+                    android:textSize="14sp"/>
             </LinearLayout>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"/>
+                android:layout_height="wrap_content"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="@style/Toolbar"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -70,27 +78,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="12dp">
+            android:padding="8dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
                 android:text="@string/about_introduce_and_help"
-                android:textColor="@color/md_grey_600"/>
+                android:textColor="@color/textColorFirst_Day"
+                android:textSize="@dimen/about_text_size"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/card"
-                android:padding="16dp">
+                android:padding="8dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:autoLink="web"
                     android:text="@string/about_introduce"
-                    android:textColor="@color/md_grey_800"
+                    android:textColor="@color/textColorSecond_Day"
+                    android:textIsSelectable="true"
                     android:textSize="14sp"/>
 
             </RelativeLayout>
@@ -99,47 +107,54 @@
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:layout_marginTop="12dp"
-                android:background="@color/md_grey_500"/>
+                android:background="@color/divider"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
                 android:layout_marginTop="12dp"
                 android:text="@string/about_developers"
-                android:textColor="@color/md_grey_600"/>
+                android:textColor="@color/textColorFirst_Day"
+                android:textSize="@dimen/about_text_size"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/card">
-
-                <ImageView
-                    android:id="@+id/ig_avatar_laucherish"
-                    android:layout_width="38dp"
-                    android:layout_height="38dp"
-                    android:layout_margin="16dp"
-                    android:src="@drawable/ic_laucherish"/>
+                android:padding="8dp">
 
                 <TextView
-                    android:id="@+id/tv_laucherish"
+                    android:id="@+id/tv_avator_blog"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignTop="@id/ig_avatar_laucherish"
-                    android:layout_toEndOf="@id/ig_avatar_laucherish"
-                    android:layout_toRightOf="@id/ig_avatar_laucherish"
-                    android:text="laucherish"
-                    android:textColor="@color/md_grey_800"
-                    tools:ignore="HardcodedText"/>
+                    android:layout_marginTop="8dp"
+                    android:text="Email: "
+                    android:textColor="@color/textColorSecond_Day"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_laucherish"
-                    android:layout_toRightOf="@id/ig_avatar_laucherish"
-                    android:paddingBottom="16dp"
+                    android:layout_alignTop="@id/tv_avator_blog"
+                    android:layout_toRightOf="@id/tv_avator_blog"
                     android:text="laucherish@gmail.com"
-                    android:textColor="@color/md_grey_600"/>
+                    android:textColor="@color/textColorSecond_Day"/>
+
+                <TextView
+                    android:id="@+id/tv_avator_github"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/tv_avator_blog"
+                    android:layout_below="@id/tv_avator_blog"
+                    android:text="GitHub: "
+                    android:textColor="@color/textColorSecond_Day"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/tv_avator_github"
+                    android:layout_toRightOf="@id/tv_avator_github"
+                    android:autoLink="web"
+                    android:text="https://github.com/laucherish/PureToDo"
+                    android:textColor="@color/textColorSecond_Day"/>
 
             </RelativeLayout>
 
@@ -147,71 +162,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:layout_marginTop="12dp"
-                android:background="@color/md_grey_500"/>
+                android:background="@color/divider"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
                 android:layout_marginTop="12dp"
                 android:text="@string/about_function"
-                android:textColor="@color/md_grey_600"/>
+                android:textColor="@color/textColorFirst_Day"
+                android:textSize="@dimen/about_text_size"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/card"
-                android:padding="16dp">
+                android:padding="8dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/about_function_list"
-                    android:textColor="@color/md_grey_800"
-                    tools:ignore="HardcodedText"/>
-
-            </RelativeLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_marginTop="12dp"
-                android:background="@color/md_grey_500"
-                android:visibility="gone"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:layout_marginTop="12dp"
-                android:text="开源协议"
-                android:visibility="gone"
-                android:textColor="@color/md_grey_600"/>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/card"
-                android:visibility="gone"
-                android:padding="16dp">
-
-                <TextView
-                    android:id="@+id/tv_otto"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="otto - Square"
-                    android:textColor="@color/md_grey_800"
-                    tools:ignore="HardcodedText"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_otto"
-                    android:text="https://github.com/square/otto\nApache Software License 2.0"
-                    android:textColor="@color/md_grey_600"
+                    android:textColor="@color/textColorSecond_Day"
                     android:textSize="@dimen/open_source_lis_text_size"
                     tools:ignore="HardcodedText"/>
+
             </RelativeLayout>
 
         </LinearLayout>

@@ -59,7 +59,7 @@ public class TasksWidgetService extends RemoteViewsService {
             Task task = mTasks.get(position);
             RemoteViews mView = new RemoteViews(mContext.getPackageName(),
                     R.layout.widget_item_tasks);
-            mView.setTextViewText(R.id.tv_widget_title, task.getTitle());
+            mView.setTextViewText(R.id.tv_widget_title, task.getTitleForList());
             mView.setTextColor(R.id.tv_widget_title, Color.BLACK);
 
             final Intent doneIntent = new Intent();

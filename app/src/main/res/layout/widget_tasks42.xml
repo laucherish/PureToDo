@@ -4,19 +4,22 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/widget_margin">
+    android:paddingLeft="@dimen/widget_margin"
+    android:paddingRight="@dimen/widget_margin"
+    android:paddingTop="@dimen/widget_margin"
+    android:paddingBottom="20dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#bbDEDFDE"
+        android:background="#BBDEDFDE"
         android:orientation="vertical" >
 
         <LinearLayout
             android:id="@+id/ll_widget_topbar"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorPrimaryTrans"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:paddingLeft="5dp"
@@ -58,7 +61,6 @@
             android:background="#aaa" />
 
         <ListView
-            android:padding="8dp"
             android:id="@+id/lv_widget"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >

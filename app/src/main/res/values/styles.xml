@@ -18,4 +18,10 @@
         <item name="android:textColor">@android:color/transparent</item>
     </style>
 
+    <style name="LisPaddingStyle">
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingTop">16dp</item>
+    </style>
+
 </resources>
