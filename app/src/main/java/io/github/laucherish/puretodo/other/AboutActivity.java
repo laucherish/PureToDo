@@ -35,7 +35,7 @@ public class AboutActivity extends AppCompatActivity {
                 finish();
                 return true;
             default:
-            return super.onOptionsItemSelected(item);
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -55,7 +55,7 @@ public class AboutActivity extends AppCompatActivity {
     private String getVersion() {
         try {
             PackageInfo pi = getPackageManager().getPackageInfo(getPackageName(), 0);
-            return pi.versionName;
+            return "Version " + pi.versionName;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
             return getString(R.string.about_version);

@@ -51,6 +51,6 @@
     <string name="about_introduce_and_help">介绍</string>
     <string name="about_function">功能计划(开发中...)</string>
     <string name="about_function_list">* 定时提醒\n* 夜间模式\n* 自选主题</string>
-    <string name="about_version">1.0</string>
+    <string name="about_version">Version 1.0</string>
 
 </resources>

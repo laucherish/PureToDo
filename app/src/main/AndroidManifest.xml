@@ -15,21 +15,26 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".addedittask.AddEditTaskActivity"/>
+        <activity
+            android:name=".addedittask.AddEditTaskActivity"
+            android:parentActivityName=".tasks.TasksActivity"/>
         <activity android:name=".other.AboutActivity">
         </activity>
 
-        <receiver android:name=".other.TasksWidget"
-                  android:icon="@mipmap/ic_launcher"
-                  android:label="@string/app_name">
+        <receiver
+            android:name=".other.TasksWidget"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>
-            <meta-data android:name="android.appwidget.provider"
-                       android:resource="@xml/appwidget_provider" />
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/appwidget_provider"/>
         </receiver>
-        <service android:name=".other.TasksWidgetService"
-                 android:permission="android.permission.BIND_REMOTEVIEWS" />
+        <service
+            android:name=".other.TasksWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"/>
     </application>
 
 </manifest>

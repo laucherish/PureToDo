@@ -1,5 +1,6 @@
 package io.github.laucherish.puretodo.tasks;
 
+import android.app.Activity;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import io.github.laucherish.puretodo.data.Task;
 import io.github.laucherish.puretodo.data.source.TasksDataSource;
 import io.github.laucherish.puretodo.data.source.TasksRepository;
 
-/**
+/**¬
  * @author laucherish
  * @date 16/4/14
  */
@@ -38,6 +39,9 @@ public class TasksPresenter implements TasksContract.Presenter {
 
     @Override
     public void result(int requestCode, int resultCode) {
+        if (Activity.RESULT_OK == resultCode) {
+            mTasksView.showSuccessfullySavedMessage();
+        }
     }
 
     @Override

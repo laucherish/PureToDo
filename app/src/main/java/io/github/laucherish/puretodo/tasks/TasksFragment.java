@@ -148,6 +148,11 @@ public class TasksFragment extends Fragment implements TasksContract.View {
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        mPresenter.result(requestCode,resultCode);
+    }
+
+    @Override
     public void setPresenter(TasksContract.Presenter presenter) {
         mPresenter = presenter;
     }

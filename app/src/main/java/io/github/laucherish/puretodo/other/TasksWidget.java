@@ -2,6 +2,7 @@ package io.github.laucherish.puretodo.other;
 
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
@@ -82,10 +83,14 @@ public class TasksWidget extends AppWidgetProvider {
 
             // 设置 AppWidget Add 点击事件
             Intent addIntent = new Intent(context, AddEditTaskActivity.class);
+            TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+            stackBuilder.addParentStack(AddEditTaskActivity.class);
+            stackBuilder.addNextIntent(addIntent);
+            PendingIntent addStackIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
             PendingIntent addPendingIntent = PendingIntent.getActivity(context, 0, addIntent, 0);
-            mView.setOnClickPendingIntent(R.id.iv_widget_add, addPendingIntent);
+            mView.setOnClickPendingIntent(R.id.iv_widget_add, addStackIntent);
 
-            // 设置 AppWidget Add 点击事件
+            // 设置 AppWidget label 点击事件
             Intent labelIntent = new Intent(context, TasksActivity.class);
             PendingIntent labelPendingIntent = PendingIntent.getActivity(context, 0, labelIntent, 0);
             mView.setOnClickPendingIntent(R.id.tv_widget_lable, labelPendingIntent);
